@@ -33,6 +33,8 @@ body {
 /* placeholder */
 .form-control::placeholder {
   color: rgba(255, 255, 255, 0.5);
+  font-family: "Roboto";
+  font-size: 1.25rem;
 }
 
 /*# sourceMappingURL=style.css.map */
