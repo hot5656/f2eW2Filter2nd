@@ -1,3 +1,35 @@
+body {
+  font-family: "Roboto";
+}
+
+.title {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.title2 {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 2.25rem;
+}
+
+.sub-title {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.place-holder {
+  font-family: "Roboto";
+  font-size: 1.25rem;
+}
+
+.label {
+  font-family: "Roboto";
+  font-style: italic;
+}
+
 /* placeholder */
 .form-control::placeholder {
   color: rgba(255, 255, 255, 0.5);
