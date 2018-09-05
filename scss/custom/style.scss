@@ -1,0 +1,12 @@
+$c-gray1: #F2F2F2;
+$c-gray2: #EBEBEB;
+$c-gray3: #D7D7D7;
+$c-gray4: #9B9B9B;
+
+
+/* placeholder */
+.form-control::placeholder {
+	color: rgba(255, 255, 255, 0.5);
+    // color: red;
+    // opacity: 1;
+}
