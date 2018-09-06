@@ -37,4 +37,8 @@ body {
   font-size: 1.25rem;
 }
 
+.search-input {
+  max-width: 800px;
+}
+
 /*# sourceMappingURL=style.css.map */
