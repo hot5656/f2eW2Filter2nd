@@ -18,11 +18,18 @@ body {
   font-family: "Roboto";
   font-weight: 700;
   font-size: 1.25rem;
+  color: #F2F2F2;
 }
 
-.place-holder {
+.form-control:focus {
+  color: #F2F2F2;
+}
+
+.form-control::placeholder {
   font-family: "Roboto";
+  font-weight: 400;
   font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .label {
@@ -30,15 +37,14 @@ body {
   font-style: italic;
 }
 
-/* placeholder */
-.form-control::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-  font-family: "Roboto";
-  font-size: 1.25rem;
+.w-90 {
+  width: 90% !important;
 }
 
+/* placeholder */
 .search-input {
   max-width: 800px;
+  background: green;
 }
 
 /*# sourceMappingURL=style.css.map */
