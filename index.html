@@ -21,38 +21,191 @@
 				<a href="#" class="navbar-brand col-11 col-md-4 col-xl-3">
 					<img class="d-block mx-auto mx-md-0" src="img/logo.png" alt="logo">
 				</a>
-				<form action="" class="form-inline border-bottom border-white col-11 col-md-6 offset-md-1 col-xl-4 d-none d-md-block">
+				<form action="" class="form-inline border-bottom border-white col-11 col-md-6 offset-md-1 col-xl-4 d-none d-md-inline-block">
 					<i class="fas fa-search text-white"></i>
-					<input type="text" class="form-control bg-transparent border-0 w-90 sub-title mb-1" placeholder="Explore your own activities">
+					<input type="text" class="form-control bg-transparent border-0 w-90 mb-1 search-input" placeholder="Explore your own activities">
 				</form>
 				
 			</nav>
-			
-				<form action="" class="form-inline border-bottom border-white col-11 col-md-6 offset-md-1 col-xl-4 d-none d-md-block">
-					<i class="fas fa-search text-white"></i>
-					<input type="text" class="form-control bg-transparent border-0 w-90 sub-title mb-1" placeholder="Explore your own activities">
-				</form>
-<!-- 			<nav class="navbar navbar-expand bg-primary">
-				<a href="#" class="navbar-logo ml-4">
-					<img src="img/logo.png" alt="logo">
-				</a>
-				<form action="" class="form-inline ml-5 border-bottom border-white search-input">
-					<i class="fas fa-search mr-2 text-white"></i>
-					<input type="text" class="form-control bg-transparent text-light border-0" placeholder="Explore your own activities">
-				</form>
-			</nav>	 -->			
+			<nav class="navbar bg-gray2 justify-content-center d-md-none">
+				<form action="" class="form-inline border-bottom border-black col-11 d-flex">
+					<i class="fas fa-search text-black"></i>
+					<input type="text" class="form-control bg-transparent border-0 w-90 mb-1 search-input-s" placeholder="Explore your own activities">
+				</form>				
+			</nav>
 		</header>
 		<div class="content">
-<!-- 			<div class="search-input">99</div>
-			<div class="title">Roboto Bold 24px</div>
-			<div class="title2">Roboto Bold 36px</div>
-			<div class="sub-title">Roboto Bold 20px</div>
-			<div>Roboto Regular 16px</div>
-			<div>Roboto Regular 16px</div>
-			<div class="place-holder">Roboto Regular 20px</div>
-			<div class="label">Roboto Italic 16px</div> -->
+		<div class="container">	
+			<div class="row  bg-gray1 align-items-start">	
+				<div class="col-12 col-md-4 col-xl-3 bg-gray2">
+						<div class="row">
+							<div class="col-12 py-3 pl-3 border-bottom">
+								<div class="row sub-title">
+									<div class="col-4 text-black">地區</div>
+									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
+								</div>
+								<!-- <h2 class="sub-title text-black">地區<i class="fas fa-minus"></i></h2> -->
+								<select name="" id="location">
+									<option value="全部">全部</option>
+									<option value="甲仙區">甲仙區</option>
+								</select>
+							</div>
+							<div class="col-12 py-3 pl-3 border-bottom">
+								<div class="row sub-title">
+									<div class="col-4 text-black">開放時間</div>
+									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
+								</div>
+								<!-- <h2 class="sub-title text-black">開放時間</h2> -->
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="all_day" >
+									<label class="form-check-label" for="all_day">全天候開放</label>
+								</div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="not_all_day">
+									<label class="form-check-label" for="not_all_day">非全天候開放</label>
+								</div>
+							</div>
+							<div class="col-12 py-3 pl-3">
+								<div class="row sub-title">
+									<div class="col-4 text-black">付費條件</div>
+									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
+								</div>
+								<!-- <h2 class="sub-title text-black">付費條件</h2> -->
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="p_free">
+									<label class="form-check-label" for="p_free">免費參觀</label>
+								</div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="p_fee">
+									<label class="form-check-label" for="p_fee">非免費參觀</label>
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="col-12 col-md-8 col-xl-9 pt-2">
+					<div class="d-none d-md-block">
+						<div class="title mt-3">景點筆數 : </div>
+						<div class="mb-3">
+							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
+								<i class="far fa-times-circle"></i>
+							</span>
+							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
+								<i class="far fa-times-circle"></i>
+							</span>
+							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
+								<i class="far fa-times-circle"></i>
+							</span>
+						</div>						
+					</div>
+					<div class="row mt-4 mx-0">
+						<div class="col-12 col-xl-3 bg-white px-0">
+							<img style="max-width: 100%;" src="img/FileArtPic.jpg" alt="">
+						</div>
+						<div class="col-12 col-xl-9 bg-white px-2 py-2">
+							<h3 class="title text-primary">高雄願景館</h3>
+							<p class="h-simple-d modal-open">
+								高雄願景館的前身是日治時期興建的高雄市舊火車站，外觀是”和洋混合式建築”氣勢雄偉，內部則為西式的玄關及大廳。2002年為了配合鐵路、捷運、高鐵的三鐵共構，這棟老火車站建築物遷移到附近的空地上，並由市府規劃，以"數位博物館"的型式，其中歷史迴廊對於鐵道文化及往日風貌有一系列回顧，讓遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場…等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
+							</p>
+							<div class="sub-title">
+								<i class="fas fa-dollar-sign"></i>
+								100
+								<span class="badge badge-pill bg-gray3 text-white label pr-3">三民區</span>
+							</div>
+							<div class="row">
+								<div class="col-12 col-xl-auto">
+									<i class="fas fa-address-card"></i>
+									<span class="text-gray4">高雄市三民區建國二路318號</span>
+								</div>
+								<div class="col-12 col-xl-auto">
+									<i class="far fa-calendar-alt"></i>
+									<span class="text-gray4">週二至週日10:00-18:00，每週一公休</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4 mx-0">
+						<div class="col-12 col-xl-3 bg-white px-0">
+							<img style="max-width: 100%;" src="img/FileArtPic.jpg" alt="">
+						</div>
+						<div class="col-12 col-xl-9 bg-white px-2 py-2">
+							<h3 class="title text-primary">高雄願景館</h3>
+							<p class="h-simple-d modal-open">
+								高雄願景館的前身是日治時期興建的高雄市舊火車站，外觀是”和洋混合式建築”氣勢雄偉，內部則為西式的玄關及大廳。2002年為了配合鐵路、捷運、高鐵的三鐵共構，這棟老火車站建築物遷移到附近的空地上，並由市府規劃，以"數位博物館"的型式，其中歷史迴廊對於鐵道文化及往日風貌有一系列回顧，讓遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場…等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
+							</p>
+							<div class="sub-title">
+								<i class="fas fa-dollar-sign"></i>
+								100
+								<span class="badge badge-pill bg-gray3 text-white label pr-3">三民區</span>
+							</div>
+							<div class="row">
+								<div class="col-12 col-xl-auto">
+									<i class="fas fa-address-card"></i>
+									<span class="text-gray4">高雄市三民區建國二路318號</span>
+								</div>
+								<div class="col-12 col-xl-auto">
+									<i class="far fa-calendar-alt"></i>
+									<span class="text-gray4">週二至週日10:00-18:00，每週一公休</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4 mx-0">
+						<div class="col-12 col-xl-3 bg-white px-0">
+							<img style="max-width: 100%;" src="img/FileArtPic.jpg" alt="">
+						</div>
+						<div class="col-12 col-xl-9 bg-white px-2 py-2">
+							<h3 class="title text-primary">高雄願景館</h3>
+							<p class="h-simple-d modal-open">
+								高雄願景館的前身是日治時期興建的高雄市舊火車站，外觀是”和洋混合式建築”氣勢雄偉，內部則為西式的玄關及大廳。2002年為了配合鐵路、捷運、高鐵的三鐵共構，這棟老火車站建築物遷移到附近的空地上，並由市府規劃，以"數位博物館"的型式，其中歷史迴廊對於鐵道文化及往日風貌有一系列回顧，讓遊客可以重溫老車站的過往風華，而3D虛擬互動區則讓參觀者以虛擬實境的方式飛越高雄的重要景點並同時見證高雄的發展歷史。願景館是認識高雄過去與未來的最佳場所，而願景橋、鐵路文化棧道、風的祝福廣場…等公共藝術區也是遊客們最愛駐足與拍照留念的美麗景點。
+							</p>
+							<div class="sub-title">
+								<i class="fas fa-dollar-sign"></i>
+								100
+								<span class="badge badge-pill bg-gray3 text-white label pr-3">三民區</span>
+							</div>
+							<div class="row">
+								<div class="col-12 col-xl-auto">
+									<i class="fas fa-address-card"></i>
+									<span class="text-gray4">高雄市三民區建國二路318號</span>
+								</div>
+								<div class="col-12 col-xl-auto">
+									<i class="far fa-calendar-alt"></i>
+									<span class="text-gray4">週二至週日10:00-18:00，每週一公休</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<footer></footer>
+		</div>
+		<footer class="bg-gray1 pb-1 pt-3">
+			<!-- <div> -->
+			  <ul class="pagination justify-content-center justify-content-md-end pr-3">
+			    <li class="page-item disabled">
+			      <a class="page-link" href="#">&laquo;</a>
+			    </li>
+			    <li class="page-item active">
+			      <a class="page-link" href="#">1</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">2</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">3</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">4</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">5</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">&raquo;</a>
+			    </li>
+			  </ul>
+			<!-- </div> -->
+		</footer>
 	</div>
 
 	<!-- jQuery , Popper.js then Bootstrap JS -->

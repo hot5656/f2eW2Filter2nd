@@ -4,6 +4,53 @@ $c-gray3: #D7D7D7;
 $c-gray4: #9B9B9B;
 
 
+@mixin placeholder {
+		&::placeholder {@content}
+}
+
+@mixin focus {
+  &:focus {@content}
+}
+
+
+.bg-gray1 {
+	background-color: $c-gray1;
+}
+.bg-gray2 {
+	background-color: $c-gray2;
+}
+.bg-gray3 {
+	background-color: $c-gray3;
+}
+
+
+.border-black {
+  border-color: #000 !important;
+}
+
+.border-gray3 {
+  border-color: $c-gray3 !important;
+}
+
+.h-simple-d {
+	height: 45px;
+}
+
+// .text-black {
+// 	color: black;
+// }
+.text-black {
+	color: black;
+}
+.text-gray4 {
+	color: $c-gray4;
+}
+
+.w-90 {
+	width: 90% !important; 
+}
+
+
 body {
 	font-family: "Roboto";
 }
@@ -24,27 +71,25 @@ body {
 	font-family: "Roboto";
 	font-weight: 700;
 	font-size: 1.25rem;
-	color: $c-gray1;
+//	color: $c-gray1;
 }
 
-.form-control:focus {
-	color: $c-gray1;
-}
-.form-control::placeholder {
-	font-family: "Roboto";
-	font-weight: 400;
-	font-size: 1.25rem;
-	color: rgba(255, 255, 255, 0.5);
-}
+// .form-control:focus {
+// 	color: $c-gray1;
+// }
+// .form-control::placeholder {
+// 	font-family: "Roboto";
+// 	font-weight: 400;
+// 	font-size: 1.25rem;
+// 	color: rgba(255, 255, 255, 0.5);
+// }
 
 .label {
 	font-family: "Roboto";
 	font-style: italic;
 }
 
-.w-90 {
-	width: 90% !important; 
-}
+
 
 /* placeholder */
 // .form-control::placeholder {
@@ -53,7 +98,53 @@ body {
 // 	font-size: 1.25rem;
 // }
 
+// .search-input {
+	// @include placeholder {
+	// 	color: $c-gray1;
+	// }
+
+	// @include focuns {
+	// 	font-family: "Roboto";
+	// 	font-weight: 400;
+	// 	font-size: 1.25rem;
+	// 	color: rgba(255, 255, 255, 0.5);
+	// }
+// }
+
 .search-input {
-	max-width: 800px;
-	background: green;
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 1.25rem;
+	color: $c-gray1;
+
+	@include placeholder {
+		font-family: "Roboto";
+		font-weight: 400;
+		font-size: 1.25rem;
+		color: rgba(#FFFFFF , 0.5);
+	}
+
+	@include focus {
+		color: $c-gray1;
+	}
+}
+
+.search-input-s {
+	font-family: "Roboto";
+	font-weight: 700;
+	font-size: 1.25rem;
+	color: black;
+
+	@include placeholder {
+		font-family: "Roboto";
+		font-weight: 400;
+		font-size: 1.25rem;
+		// color: rgba(#FFFFFF , 0.5);
+		color: $c-gray4;
+	}
+
+	@include focus {
+		color: black;
+		outline: 0;
+	}
 }

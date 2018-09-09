@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start" : "./node_modules/.bin/browser-sync start --server --no-notify --files=`index.html, *.js, stylesheets/*.css`",
+    "start": "./node_modules/.bin/browser-sync start --server --no-notify --files=`index.html, *.js, stylesheets/*.css`",
     "css-c": "npm-run-all --parallel css-lint css-compile-c --sequential css-prefix-c css-minify-c",
     "css-compile-c": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootsrap/4.1.3/bootstrap-custom.scss stylesheets/bootsrap/4.1.3/bootstrap-custom.css",
     "css-prefix-c": "postcss --config build/postcss.config.js --replace \"stylesheets/bootsrap/4.1.3/bootstrap-custom.css\" \"!stylesheets/bootsrap/4.1.3/bootstrap-custom.min.css\"",
