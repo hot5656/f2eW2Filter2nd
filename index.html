@@ -36,48 +36,64 @@
 		</header>
 		<div class="content">
 		<div class="container">	
-			<div class="row  bg-gray1 align-items-start">	
+			<div class="row  bg-gray1 align-items-start pl-xl-3">	
 				<div class="col-12 col-md-4 col-xl-3 bg-gray2">
 						<div class="row">
-							<div class="col-12 py-3 pl-3 border-bottom">
+							<div class="col-12 py-3 px-4 border-bottom">
 								<div class="row sub-title">
-									<div class="col-4 text-black">地區</div>
-									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
+									<div class="col-7 text-black">地區</div>
+									<div class="col-1 d-md-none offset-3 text-gray4">
+										<button class="bg-gray2 border-0" type="button" data-toggle="collapse" data-target="#location_sel" aria-expanded="true" aria-controls="location_sel">
+											<i class="fas fa-minus"></i>
+										</button>
+										</a>
+									</div>
 								</div>
-								<!-- <h2 class="sub-title text-black">地區<i class="fas fa-minus"></i></h2> -->
-								<select name="" id="location">
-									<option value="全部">全部</option>
-									<option value="甲仙區">甲仙區</option>
-								</select>
-							</div>
-							<div class="col-12 py-3 pl-3 border-bottom">
-								<div class="row sub-title">
-									<div class="col-4 text-black">開放時間</div>
-									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
-								</div>
-								<!-- <h2 class="sub-title text-black">開放時間</h2> -->
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="all_day" >
-									<label class="form-check-label" for="all_day">全天候開放</label>
-								</div>
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="not_all_day">
-									<label class="form-check-label" for="not_all_day">非全天候開放</label>
+								<div class="collapse show" id="location_sel">
+									<select name="" id="location">
+										<option value="全部">全部</option>
+										<option value="甲仙區">甲仙區</option>
+									</select>									
 								</div>
 							</div>
-							<div class="col-12 py-3 pl-3">
+							<div class="col-12 py-3 px-4 border-bottom">
 								<div class="row sub-title">
-									<div class="col-4 text-black">付費條件</div>
-									<div class="col-1 d-md-none offset-6 text-gray4"><i class="fas fa-minus"></i></div>
+									<div class="col-7 text-black">開放時間</div>
+									<div class="col-1 d-md-none offset-3 text-gray4">
+										<button class="bg-gray2 border-0" type="button" data-toggle="collapse" data-target="#open_day" aria-expanded="true" aria-controls="open_day">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
 								</div>
-								<!-- <h2 class="sub-title text-black">付費條件</h2> -->
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="p_free">
-									<label class="form-check-label" for="p_free">免費參觀</label>
+									<div class="collapse show" id="open_day">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="all_day" >
+										<label class="form-check-label" for="all_day">全天候開放</label>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="not_all_day">
+										<label class="form-check-label" for="not_all_day">非全天候開放</label>
+									</div>									
 								</div>
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="p_fee">
-									<label class="form-check-label" for="p_fee">非免費參觀</label>
+							</div>
+							<div class="col-12 py-3 px-4">
+								<div class="row sub-title">
+									<div class="col-7 text-black">付費條件</div>
+									<div class="col-1 d-md-none offset-3 text-gray4">
+										<button class="bg-gray2 border-0" type="button" data-toggle="collapse" data-target="#pay" aria-expanded="true" aria-controls="pay">
+											<i class="fas fa-minus"></i>
+										</button>
+									</div>
+								</div>
+								<div class="collapse show" id="pay">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="p_free">
+										<label class="form-check-label" for="p_free">免費參觀</label>
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="p_fee">
+										<label class="form-check-label" for="p_fee">非免費參觀</label>
+									</div>									
 								</div>
 							</div>
 						</div>

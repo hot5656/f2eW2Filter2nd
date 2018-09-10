@@ -78,6 +78,7 @@ body {
 
 .search-input:focus {
   color: #F2F2F2;
+  box-shadow: none;
 }
 
 .search-input-s {
@@ -96,7 +97,7 @@ body {
 
 .search-input-s:focus {
   color: black;
-  outline: 0;
+  box-shadow: none;
 }
 
 /*# sourceMappingURL=style.css.map */

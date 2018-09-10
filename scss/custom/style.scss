@@ -126,6 +126,7 @@ body {
 
 	@include focus {
 		color: $c-gray1;
+		box-shadow: none;
 	}
 }
 
@@ -145,6 +146,6 @@ body {
 
 	@include focus {
 		color: black;
-		outline: 0;
+		box-shadow: none;
 	}
 }
