@@ -11,10 +11,17 @@ var data = {
     offset: 0
 };
 // variable - fix
-var spotMaxItem = 3 ; // one page spot number
-var shiftMaxNo = 5;		// max shift button
-var paginationMax = 5 ;
-var sartPage = 0 ;
+var page = {
+  spotMaxItem: 3,   // one page spot number
+  shiftMaxNo: 5,		// max shift button
+  paginationMax: 5,
+  startPage: 0,
+  pointPage: 0
+};
+// var spotMaxItem = 3 ; // one page spot number
+// var shiftMaxNo = 5;		// max shift button
+// var paginationMax = 5 ;
+// var sartPage = 0 ;
 
 
 $(document).ready(function() {
@@ -34,12 +41,12 @@ $(document).ready(function() {
 	// show spot counter
 	$(".spot_counetr").text("景點筆數 : " + tripList.length );
 	// show spot
-	showSpotData(tripList, 0, tripList.length, spotMaxItem);
+	showSpotData(tripList, 0, tripList.length, page.spotMaxItem);
 	// show pagibnation
-	sartPage = showPagination(sartPage, 0, Math.ceil(tripList.length/spotMaxItem)
-									 , paginationMax);
+	showPagination(page, Math.ceil(tripList.length/page.spotMaxItem));
+
 	// init page event
-	pageEventInit(paginationMax) ;
+	// pageEventInit(page.paginationMax) ;
 });
 
 function getTripDat(data, tripList) {
@@ -100,44 +107,52 @@ function	showSpotData(records, startRecord, totalRecord, spotMaxItem) {
 }
 
 // startPage from 0 
-function	showPagination(startPage, indexPage, totalPage, paginationMax) {
+function	showPagination(page, totalPage) {
 	var pageItem = $(".page-item") ;
 	var currStartPage = 0 ;
 	
-	if (indexPage>=startPage && indexPage<(startPage+paginationMax)) {
-		currStartPage = startPage;
+	if (page.pointPage>=page.startPage && page.pointPage<(page.startPage+page.paginationMax)) {
+		currStartPage = page.startPage;
 	}
 	else {
-		currStartPage = indexPage;
+		if(page.pointPage < page.startPage) {
+			currStartPage = page.startPage - 1 ;
+		} 
+		else {
+			currStartPage = page.startPage + 1 ;
+		}
 	}
 
-	pageItem.removeClass("active").addClass("disabled");
-	for(var i=0 ; i<paginationMax ; i++) {
+	pageItem.removeClass("active").addClass("disabled").remove("onclick") ;
+	for(var i=0 ; i<page.paginationMax ; i++) {
 		var index = i + 1 ;
 
-		if ((startPage+i) < totalPage) {
+		if ((currStartPage+i) < totalPage) {
 			pageItem[index].style.display = "block";
 			pageItem[index].classList.remove("disabled");
-			pageItem[index].children.innerText = (startPage+1).toString();
+			pageItem[index].children[0].innerText = (currStartPage+1+i).toString();
+			pageItem[index].onclick = changePage;
 		}
 		else {
 			pageItem[index].style.display = "none";
 		}
 
-		if ((i+startPage) == indexPage) {
+		if ((i+currStartPage) == page.pointPage) {
 			pageItem[index].classList.add("active");
 		}
 	}
 
-	if (startPage != 0) {
+	if (page.pointPage != 0) {
 		pageItem[0].classList.remove("disabled");
+		pageItem[0].onclick = pageDown ;
 	}
 
-	if ((startPage+paginationMax) < (totalPage-1)) {
-		pageItem[paginationMax+1].classList.remove("disabled");
+	if ((currStartPage+page.paginationMax) < (totalPage-1)) {
+		pageItem[page.paginationMax+1].classList.remove("disabled");
+		pageItem[page.paginationMax+1].onclick = pageUp ;
 	}
 
-	return currStartPage;
+	page.startPage = currStartPage;
 }
 
 // page event init 
@@ -153,18 +168,18 @@ function pageEventInit(paginationMax) {
 
 function changePage(event) {
 	var inValue = Number(event.toElement.innerText) ;
-	sartPage = showPagination(sartPage, inValue-1, Math.ceil(tripList.length/spotMaxItem)
-									 , paginationMax);
+	page.pointPage = inValue-1 ;
+	showPagination(page, Math.ceil(tripList.length/page.spotMaxItem));
 }
 
 function pageDown() {
-	sartPage = showPagination(sartPage, sartPage-1, Math.ceil(tripList.length/spotMaxItem)
-									 , paginationMax);
+	page.pointPage -= 1 ;
+	showPagination(page, Math.ceil(tripList.length/page.spotMaxItem));
 }
 
 function pageUp() {
-	sartPage = showPagination(sartPage+1, sartPage+paginationMax, Math.ceil(tripList.length/spotMaxItem)
-									 , paginationMax);
+	page.pointPage += 1 ;
+	showPagination(page, Math.ceil(tripList.length/page.spotMaxItem));
 }
 
 // get parameter value 
