@@ -49,10 +49,38 @@
 										</a>
 									</div>
 								</div>
-								<div class="collapse show" id="location_sel">
+								<div onclick="locateSelect(event)" class="collapse show" id="location_sel">
 									<select name="" id="location">
 										<option value="全部">全部</option>
 										<option value="甲仙區">甲仙區</option>
+										<option value="三民區">三民區</option>
+										<option value="大樹區">大樹區</option>
+										<option value="小港區">小港區</option>
+										<option value="仁武區">仁武區</option>
+										<option value="內門區">內門區</option>
+										<option value="六龜區">六龜區</option>
+										<option value="左營區">左營區</option>
+										<option value="永安區">永安區</option>
+										<option value="田寮區">田寮區</option>
+										<option value="甲仙區">甲仙區</option>
+										<option value="杉林區">杉林區</option>
+										<option value="那瑪夏">那瑪夏</option>
+										<option value="岡山區">岡山區</option>
+										<option value="前金區">前金區</option>
+										<option value="前鎮區">前鎮區</option>
+										<option value="美濃區">美濃區</option>
+										<option value="美濃區">美濃區</option>
+										<option value="茄萣區">茄萣區</option>
+										<option value="茂林區">茂林區</option>
+										<option value="苓雅區">苓雅區</option>
+										<option value="桃源區">桃源區</option>
+										<option value="高雄市">高雄市</option>
+										<option value="梓官區">梓官區</option>
+										<option value="新興區">新興區</option>
+										<option value="楠梓區">楠梓區</option>
+										<option value="鼓山區">鼓山區</option>
+										<option value="旗津區">旗津區</option>
+										<option value="鳳山區">鳳山區</option>
 									</select>									
 								</div>
 							</div>
@@ -67,11 +95,11 @@
 								</div>
 									<div class="collapse show" id="open_day">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="all_day" >
+										<input onclick="conditionSelect(event)" type="checkbox" class="form-check-input" id="all_day" >
 										<label class="form-check-label" for="all_day">全天候開放</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="not_all_day">
+										<input onclick="conditionSelect(event)" type="checkbox" class="form-check-input" id="not_all_day">
 										<label class="form-check-label" for="not_all_day">非全天候開放</label>
 									</div>									
 								</div>
@@ -87,13 +115,17 @@
 								</div>
 								<div class="collapse show" id="pay">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="p_free">
+										<input onclick="conditionSelect(event)" type="checkbox" class="form-check-input" id="p_free">
 										<label class="form-check-label" for="p_free">免費參觀</label>
 									</div>
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="p_fee">
+										<input onclick="conditionSelect(event)" type="checkbox" class="form-check-input" id="p_fee">
 										<label class="form-check-label" for="p_fee">非免費參觀</label>
 									</div>									
+									<div class="form-check">
+										<input onclick="conditionSelect(event)" type="checkbox" class="form-check-input" id="p_none">
+										<label class="form-check-label" for="p_none">無資訊</label>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -129,11 +161,11 @@
 								<span class="badge badge-pill bg-gray3 text-white label pr-3">三民區</span>
 							</div>
 							<div class="row">
-								<div class="col-12 col-xl-auto">
+								<div class="col-12 col-xl-auto w-90">
 									<i class="fas fa-address-card"></i>
 									<span class="spot_add text-gray4">高雄市三民區建國二路318號</span>
 								</div>
-								<div class="col-12 col-xl-auto">
+								<div class="col-12 col-xl-auto w-90">
 									<i class="far fa-calendar-alt"></i>
 									<span class="spot_time text-gray4">週二至週日10:00-18:00，每週一公休</span>
 								</div>
@@ -157,9 +189,9 @@
 							<div class="row">
 								<div class="col-12 col-xl-auto">
 									<i class="fas fa-address-card"></i>
-									<span class="spot_add text-gray4">高雄市三民區建國二路318號</span>
+									<span class="spot_add text-gray4 w-90">高雄市三民區建國二路318號</span>
 								</div>
-								<div class="col-12 col-xl-auto">
+								<div class="col-12 col-xl-auto w-90">
 									<i class="far fa-calendar-alt"></i>
 									<span class="spot_time text-gray4">週二至週日10:00-18:00，每週一公休</span>
 								</div>
@@ -181,13 +213,13 @@
 								<span class="badge badge-pill bg-gray3 text-white label pr-3">三民區</span>
 							</div>
 							<div class="row">
-								<div class="col-12 col-xl-auto">
+								<div class="col-12 col-xl-auto w-90">
 									<i class="fas fa-address-card"></i>
 									<span class="spot_add text-gray4">高雄市三民區建國二路318號</span>
 								</div>
-								<div class="col-12 col-xl-auto">
+								<div class="col-12 col-xl-auto w-90">
 									<i class="far fa-calendar-alt"></i>
-									<span class="spot_time text-gray4">週二至週日10:00-18:00，每週一公休</span>
+ 									<span class="spot_time text-gray4">週二至週日10:00-18:00，每週一公休</span>
 								</div>
 							</div>
 						</div>
