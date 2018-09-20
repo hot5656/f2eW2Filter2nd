@@ -16,14 +16,21 @@ var page = {
   shiftMaxNo: 5,		// max shift button
   paginationMax: 5,
   startPage: 0,
-  pointPage: 0
+  pointPage: 0,
+  totalPage: 0,
+  totalRecord: 0,
+  dataOrigin: true
 };
-var totalPage = 0 ;
-var recordIndex = 0 ;
-// var spotMaxItem = 3 ; // one page spot number
-// var shiftMaxNo = 5;		// max shift button
-// var paginationMax = 5 ;
-// var sartPage = 0 ;
+// filter condition
+var filter = {
+	allDay: false ,
+	notAllDay: false ,
+	fee: false ,
+	Free: false ,
+	noCost: false ,
+	location: "全部"
+};
+var filterData = null;
 
 
 $(document).ready(function() {
@@ -40,13 +47,16 @@ $(document).ready(function() {
 	// show trip data
 	console.log(tripList);
 
-	totalPage = Math.ceil(tripList.length/page.spotMaxItem);
+	/* ===== always Origin ===== */
+	page.totalPage = Math.ceil(tripList.length/page.spotMaxItem);
+	page.totalRecord = tripList.length;
 	// show spot counter
-	$(".spot_counetr").text("景點筆數 : " + tripList.length );
+	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
 	// show spot
-	showSpotData(tripList, recordIndex, tripList.length, page.spotMaxItem);
+	showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+
 	// show pagibnation
-	showPagination(page, totalPage);
+	showPagination(page, page.totalPage);
 
 	// init page event
 	// pageEventInit(page.paginationMax) ;
@@ -83,7 +93,7 @@ function getTripDat(data, tripList) {
 }
 
 // show home spot screen
-function	showSpotData(records, startRecord, totalRecord, spotMaxItem) {
+function	showSpotData(records, pointPage, totalRecord, spotMaxItem) {
 	var spot = $(".spot");
 	var spot_pic = $(".spot_pic");
 	var spot_name = $(".spot_name");
@@ -91,6 +101,7 @@ function	showSpotData(records, startRecord, totalRecord, spotMaxItem) {
 	var spot_cost = $(".spot_cost");
 	var spot_add = $(".spot_add");
 	var spot_time = $(".spot_time");
+	var startRecord = pointPage * spotMaxItem ;
 
 	for (var i=0 ; i < spotMaxItem ; i++) {
 		if ((startRecord+i) >= totalRecord) {
@@ -98,7 +109,9 @@ function	showSpotData(records, startRecord, totalRecord, spotMaxItem) {
 		}
 		else {
 			spot[i].style.display = "flex" ;
- 			spot_pic[i].src =  records[i+startRecord].Picture1;
+
+			// fix data issue
+			spot_pic[i].src =  records[i+startRecord].Picture1;
 	 		spot_name[i].innerText = records[i+startRecord].Name;
 	 		spot_info[i].innerText = records[i+startRecord].Description;
 	 		if (records[i+startRecord].Ticketinfo.length != 0 ) {
@@ -151,6 +164,15 @@ function	showPagination(page, totalPage) {
 		}
 	}
 
+	if (totalPage == 0) {
+		pageItem[0].style.display = "none";
+		pageItem[page.paginationMax+1].style.display = "none";
+	}
+	else {
+		pageItem[0].style.display = "block";
+		pageItem[page.paginationMax+1].style.display = "block";
+	}
+
 	if (page.pointPage != 0) {
 		pageItem[0].classList.remove("disabled");
 		pageItem[0].onclick = pageDown ;
@@ -185,38 +207,54 @@ function changePage(event) {
 	var inValue = Number(event.toElement.innerText) ;
 	page.pointPage = inValue-1 ;
 	// show spot
-	recordIndex = page.pointPage*3 ;
-	showSpotData(tripList, recordIndex, tripList.length, page.spotMaxItem);
+	if (page.dataOrigin) {
+		showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
+	else {
+		showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
+
 	// show pagination
-	showPagination(page, totalPage);
+	showPagination(page, page.totalPage);
 }
 
 function pageDown() {
 	page.pointPage -= 1 ;
 
 	// show spot
-	recordIndex = page.pointPage*3 ;
-	showSpotData(tripList, recordIndex, tripList.length, page.spotMaxItem);
+	if (page.dataOrigin) {
+		showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
+	else {
+		showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
 	// show pagination
-	showPagination(page, totalPage);
+	showPagination(page, page.totalPage);
 }
 
 function pageUp() {
 	page.pointPage += 1 ;
 
 	// show spot
-	recordIndex = page.pointPage*3 ;
-	showSpotData(tripList, recordIndex, tripList.length, page.spotMaxItem);
+	if (page.dataOrigin) {
+		showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
+	else {
+		showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+	}
+
 	// show pagination
-	showPagination(page, totalPage);
+	showPagination(page, page.totalPage);
 }
 
 // location filter
 function locateSelect(event) {
-  var filrterBtn1 = document.getElementById("filter_btn1");
+	//var filter = $("badge") ;
 
   // get locate data
-	filterLocation = event.target.options[event.target.selectedIndex].value ;
+	//filterLocation = event.target.options[event.target.selectedIndex].value ;
+	filter.location = event.target.options[event.target.selectedIndex].value ;
+/*	
 	// show filter button
   if (filterLocation == "全部") {
   	filrterBtn1.innerHTML = filterLable ;
@@ -228,56 +266,81 @@ function locateSelect(event) {
 		filrterBtn1.style.color = "#F2F2F2";
 		filrterBtn1.style.backgroundColor = "#9013FE";
   }
-
+*/
   // filetr data
-	filterData = xhrRespDataRaw.result.records.filter(filterSpot);
+	//filterData = xhrRespDataRaw.result.records.filter(filterSpot);
+	filterData = tripList.filter(filterSpot);
 	
 	// show filter screen
-  showFilterScreen()
+  //showFilterScreen()
+
+	/* ===== always filter data ===== */
+  page.startPage = 0;
+  page.pointPage = 0;
+  page.dataOrigin = false;
+
+	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
+	page.totalRecord = filterData.length;
+	// show spot counter
+	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
+	// show spot
+	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+
+	// show pagibnation
+	showPagination(page, page.totalPage);
 }
 
 // condition filter
 function conditionSelect(event) {
-	var filrterBtn2 = document.getElementById("filter_btn2");
-	var filrterBtn3 = document.getElementById("filter_btn3");
+	//var filrterBtn2 = document.getElementById("filter_btn2");
+	//var filrterBtn3 = document.getElementById("filter_btn3");
 
 	switch (event.target.value) {
 		case "all_day" :
 			if (event.toElement.checked) {
-				filterAllDay = true ;
+				filter.allDay = true ;
 			}
 			else {
-				filterAllDay = false ;
+				filter.allDay = false ;
 			}
 			break ;
 		case "not_all_day" :
 			if (event.toElement.checked) {
-				filterNotAllDay = true ;
+				filter.notAllDay = true ;
 			}
 			else {
-				filterNotAllDay = false ;			
+				filter.notAllDay = false ;			
 			}
 			break ;
-		case "p_pay" :
+		case "p_fee" :
 			if (event.toElement.checked) {
-				filterNotFree = true ;
+				filter.fee = true ;
 			}
 			else {
-				filterNotFree = false ;
+				filter.fee = false ;
 			}
 			break ;
 		case "p_free" :
 			if (event.toElement.checked) {
-				filterFree = true ;
+				filter.free = true ;
 			}
 			else {
-				filterFree = false ;
+				filter.free = false ;
+			}
+			break ;
+		case "p_none" :
+			if (event.toElement.checked) {
+				filter.noCost = true ;
+			}
+			else {
+				filter.noCost = false ;
 			}
 			break ;
 		default :
 			break ;
 	}
 
+/*
 	filrterBtn2.innerHTML = "" ;
 	if (filterAllDay && filterNotAllDay) {
 		filrterBtn2.innerHTML = "全天候開放" + "/" + "非全天候開放";
@@ -321,12 +384,78 @@ function conditionSelect(event) {
 		filrterBtn3.style.backgroundColor = "#9013FE";
 	}
 	filrterBtn3.innerHTML += filterLable ;
+*/
 
   // filter data
-	filterData = xhrRespDataRaw.result.records.filter(filterSpot);
+	filterData = tripList.filter(filterSpot);
 	
 	// show filter screen
-  showFilterScreen();
+  //showFilterScreen();
+
+	/* ===== always filter data ===== */
+  page.startPage = 0;
+  page.pointPage = 0;
+  page.dataOrigin = false;
+
+	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
+	page.totalRecord = filterData.length;
+	// show spot counter
+	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
+	// show spot
+	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+
+	// show pagibnation
+	showPagination(page, page.totalPage);
+}
+
+// filter check function
+function filterSpot(data) {
+	var filterState = true ;
+
+	var b = data.Opentime ;
+	if (filter.free || filter.fee || filter.noCost) {
+		filterState = false ;
+		if (filter.free && (data.Ticketinfo=="免費參觀")) {
+			filterState = true;
+		}
+		if ((filter.noCost) && (data.Ticketinfo==="")) {
+			filterState = true;
+		}
+		if (filter.fee) {
+			if (!(data.Ticketinfo=="免費參觀") && !(data.Ticketinfo==="")) {
+			filterState = true;				
+			}
+		}
+	}
+
+	if (filter.location != "全部") {
+		if (!(data.Zone==filter.location)) {
+			filterState = false ;
+		}
+	}
+
+  var a = data.Opentime ;
+	if (filter.allDay ||  filter.notAllDay)  {
+		if (filter.allDay &&  filter.notAllDay) {
+			// all open select
+		  ;
+		}
+		else if (filter.allDay) {
+			// all day - mask not all day
+			if (!(data.Opentime=="全天候開放")) {
+				filterState = false ;
+			}
+		}
+		else {
+			// not all day - mask all ady
+			if (data.Opentime=="全天候開放") {
+				filterState = false ;
+			}
+		}
+	}
+
+	
+	return filterState;
 }
 
 // get parameter value 
