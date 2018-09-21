@@ -97,6 +97,10 @@ body {
 	box-shadow: none;
 }
 
+.spot:hover {
+	box-shadow: 10px 10px 5px $c-gray3;
+	cursor:pointer;
+}
 
 /* placeholder */
 // .form-control::placeholder {

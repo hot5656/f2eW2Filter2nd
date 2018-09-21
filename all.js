@@ -47,25 +47,27 @@ $(document).ready(function() {
 	}
 
 	/* ===== always Origin ===== */
-	page.startPage = 0;
-  page.pointPage = 0;
-  page.dataOrigin = true;
+	page.dataOrigin = true;
+	showSpotScreen(page, tripList) ;
+});
 
-	page.totalPage = Math.ceil(tripList.length/page.spotMaxItem);
-	page.totalRecord = tripList.length;
+function showSpotScreen(page, list) {
+	page.startPage = 0;
+	page.pointPage = 0;
+	page.totalPage = Math.ceil(list.length/page.spotMaxItem);
+	page.totalRecord = list.length;
 	// show spot counter
 	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
 	// show spot
-	showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+	showSpotData(list, page.pointPage, page.totalRecord, page.spotMaxItem);
 
 	// show pagibnation
 	showPagination(page, page.totalPage);
-
-});
+}
 
 // search input and load
 function inputSearch(event) {
-		event.preventDefault();
+		//event.preventDefault();
 		if (event.keyCode == 13) {
 		//get trip data
 		data.offset = 0 ;
@@ -87,25 +89,11 @@ function inputSearch(event) {
 			else {
 				return false;
 			}
-
 		});
 
-
-		//return false ; 
 		/* ===== always Origin ===== */
-		page.startPage = 0;
-  	page.pointPage = 0;
-  	page.dataOrigin = true;
-
-		page.totalPage = Math.ceil(tripList.length/page.spotMaxItem);
-		page.totalRecord = tripList.length;
-		// show spot counter
-		$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
-		// show spot
-		showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
-
-		// show pagibnation
-		showPagination(page, page.totalPage);
+		page.dataOrigin = true;
+		showSpotScreen(page, tripList) ;
 
 		event.target.value = "";
 	}
@@ -324,19 +312,8 @@ function clearFilter(index) {
 	filterData = tripList.filter(filterSpot);
 
 	/* ===== always filter data ===== */
-  page.startPage = 0;
-  page.pointPage = 0;
-  page.dataOrigin = false;
-
-	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
-	page.totalRecord = filterData.length;
-	// show spot counter
-	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
-	// show spot
-	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
-
-	// show pagibnation
-	showPagination(page, page.totalPage);
+	page.dataOrigin = false;
+	showSpotScreen(page, filterData) ;
 }
 
 // location filter
@@ -372,19 +349,8 @@ function locateSelect(event) {
 	filterData = tripList.filter(filterSpot);
 
 	/* ===== always filter data ===== */
-  page.startPage = 0;
-  page.pointPage = 0;
-  page.dataOrigin = false;
-
-	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
-	page.totalRecord = filterData.length;
-	// show spot counter
-	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
-	// show spot
-	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
-
-	// show pagibnation
-	showPagination(page, page.totalPage);
+	page.dataOrigin = false;
+	showSpotScreen(page, filterData) ;
 }
 
 // condition filter
@@ -512,19 +478,8 @@ function conditionSelect(event) {
 	filterData = tripList.filter(filterSpot);
 
 	/* ===== always filter data ===== */
-  page.startPage = 0;
-  page.pointPage = 0;
-  page.dataOrigin = false;
-
-	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
-	page.totalRecord = filterData.length;
-	// show spot counter
-	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
-	// show spot
-	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
-
-	// show pagibnation
-	showPagination(page, page.totalPage);
+	page.dataOrigin = false;
+	showSpotScreen(page, filterData);
 }
 
 // filter check function
@@ -572,7 +527,6 @@ function filterSpot(data) {
 			}
 		}
 	}
-
 	
 	return filterState;
 }
