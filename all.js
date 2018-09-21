@@ -531,6 +531,33 @@ function filterSpot(data) {
 	return filterState;
 }
 
+// show 2nd spot screen
+function showOneSpot(event, index) {
+	var winRight2 = document.getElementsByClassName("win_right2")[0];
+	var upScreen = event.currentTarget.childNodes ;
+	var curScreen = winRight2.childNodes ;
+	var curScreenSub = curScreen[5].childNodes ;
+	var spotIndex = pagePosition * spotMaxItem + index ;
+
+	// show spot mode 0
+	switchSpotMode(1);
+
+  // title
+    curScreen[1].innerHTML = "<span>Explore</span> / "+ spotArry[spotIndex].Name;
+	// img
+	curScreen[3].src = spotArry[spotIndex].Picture1;
+  // title 2
+	curScreenSub[1].innerHTML = spotArry[spotIndex].Name;
+	// dollar + address
+	curScreenSub[3].innerHTML = '<i class="fas fa-dollar-sign"></i>' + spotArry[spotIndex].Ticketinfo
+																+" " + '<i class="fas fa-address-card"></i>' + spotArry[spotIndex].Add;
+	// locate + opentime
+	curScreenSub[7].innerHTML = '<i class="fas fa-map-marker-alt"></i>' + spotArry[spotIndex].Zone
+																+" " + '<i class="far fa-calendar-alt"></i>' + spotArry[spotIndex].Opentime;
+	// describe
+	curScreenSub[11].innerHTML = spotArry[spotIndex].Description;
+}
+
 // get parameter value 
 // no exist resurn null
 // http://www.mysite.com/mypage.html?var1=value1&var2=value2&var3=value3
