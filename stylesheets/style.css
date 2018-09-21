@@ -61,6 +61,15 @@ body {
   font-style: italic;
 }
 
+.btn-filter {
+  border-radius: 10rem;
+}
+
+.btn-filter:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 /* placeholder */
 .search-input {
   font-family: "Roboto";

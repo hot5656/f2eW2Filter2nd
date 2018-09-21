@@ -23,7 +23,7 @@
 				</a>
 				<form action="" class="form-inline border-bottom border-white col-11 col-md-6 offset-md-1 col-xl-4 d-none d-md-inline-block">
 					<i class="fas fa-search text-white"></i>
-					<input type="text" class="form-control bg-transparent border-0 w-90 mb-1 search-input" placeholder="Explore your own activities">
+					<input type="text" onkeypress="inputSearch(event)" class="form-control bg-transparent border-0 w-90 mb-1 search-input" placeholder="Explore your own activities">
 				</form>
 				
 			</nav>
@@ -134,15 +134,24 @@
 					<div class="d-none d-md-block">
 						<div class="spot_counetr title mt-3">景點筆數 : </div>
 						<div class="mb-3">
-							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
+							<button onclick="clearFilter(0)" class="btn-filter bg-transparent text-primary border border-primary label pt-1" id="filte-btn-location">
+								<i class="far fa-times-circle"></i>
+							</button>
+							<button onclick="clearFilter(1)" class="btn-filter bg-transparent text-primary border border-primary label pt-1" id="filte-btn-open">
+								<i class="far fa-times-circle"></i>
+							</button>
+							<button onclick="clearFilter(2)" class="btn-filter bg-transparent text-primary border border-primary label pt-1" id="filte-btn-pay">
+								<i class="far fa-times-circle"></i>
+							</button>
+<!-- 							<span class="badge badge-pill bg-transparent text-primary label border border-primary py-2" id="filte-btn-location">
+								<i class="far fa-times-circle"></i>
+							</span> -->
+<!-- 							<span class="badge badge-pill bg-transparent text-primary label border border-primary py-2" id="filte-btn-open">
 								<i class="far fa-times-circle"></i>
 							</span>
-							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
+							<span class="badge badge-pill bg-transparent text-primary label border border-primary py-2" id="filte-btn-pay">
 								<i class="far fa-times-circle"></i>
-							</span>
-							<span class="badge badge-pill bg-transparent text-primary label border border-primary">
-								<i class="far fa-times-circle"></i>
-							</span>
+							</span> -->
 						</div>						
 					</div>
 					<div class="spot row mt-4 mx-0">

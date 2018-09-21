@@ -31,6 +31,8 @@ var filter = {
 	location: "全部"
 };
 var filterData = null;
+var filterLable = '<i class="far fa-times-circle"></i>' ;
+var filterLableShift = '<i class="far fa-times-circle ml-2"></i>' ;
 
 
 $(document).ready(function() {
@@ -44,10 +46,11 @@ $(document).ready(function() {
 		}
 	}
 
-	// show trip data
-	console.log(tripList);
-
 	/* ===== always Origin ===== */
+	page.startPage = 0;
+  page.pointPage = 0;
+  page.dataOrigin = true;
+
 	page.totalPage = Math.ceil(tripList.length/page.spotMaxItem);
 	page.totalRecord = tripList.length;
 	// show spot counter
@@ -58,9 +61,55 @@ $(document).ready(function() {
 	// show pagibnation
 	showPagination(page, page.totalPage);
 
-	// init page event
-	// pageEventInit(page.paginationMax) ;
 });
+
+// search input and load
+function inputSearch(event) {
+		event.preventDefault();
+		if (event.keyCode == 13) {
+		//get trip data
+		data.offset = 0 ;
+		tripList.length = 0;
+		run = true;
+		while(true) {
+			getTripDat(data, tripList);
+			data.offset += 100 ;
+			if (!run) {
+				break;
+			}
+		}
+
+		// filter 
+		tripList = tripList.filter( function(item) {
+			if (item.Name.indexOf(event.target.value) != -1) {
+				return true;
+			}
+			else {
+				return false;
+			}
+
+		});
+
+
+		//return false ; 
+		/* ===== always Origin ===== */
+		page.startPage = 0;
+  	page.pointPage = 0;
+  	page.dataOrigin = true;
+
+		page.totalPage = Math.ceil(tripList.length/page.spotMaxItem);
+		page.totalRecord = tripList.length;
+		// show spot counter
+		$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
+		// show spot
+		showSpotData(tripList, page.pointPage, page.totalRecord, page.spotMaxItem);
+
+		// show pagibnation
+		showPagination(page, page.totalPage);
+
+		event.target.value = "";
+	}
+}
 
 function getTripDat(data, tripList) {
 	var next ;
@@ -71,22 +120,18 @@ function getTripDat(data, tripList) {
 		datatype:"json",
 		async: false, // set sync (default async)
 		error: function (xhr, ajaxOptions, thrownError) {
-			// console.log(xhr);
 			run = false ;
 		},
 		success:  function (respData, textStatus) {
 			next = respData.result._links.next;
 
-			// console.log(next, getParameterString(next, "offset"));
 			if (respData.result.records.length > 0 ) {
 				for(var j=0 ; j<respData.result.records.length ; j++) {
 					tripList.push(respData.result.records[j]);
 				}
-				// console.log(respData.result.records[0].Name, respData.result.records);
 			}
 			else {
 				run = false ;
-				// console.log(respData);
 			}
 		},
 	});
@@ -192,17 +237,6 @@ function	showPagination(page, totalPage) {
 	page.startPage = currStartPage;
 }
 
-// page event init 
-function pageEventInit(paginationMax) {
-	var pageItem = $(".page-item") ;
-
-	for(var i=1 ; i<=paginationMax ; i++) {
-		pageItem[i].onclick = changePage;
-	}
-	pageItem[0].onclick = pageDown ;
-	pageItem[paginationMax+1].onclick = pageUp ;
-}
-
 function changePage(event) {
 	var inValue = Number(event.toElement.innerText) ;
 	page.pointPage = inValue-1 ;
@@ -247,32 +281,95 @@ function pageUp() {
 	showPagination(page, page.totalPage);
 }
 
+// process clear fileter button
+function clearFilter(index) {
+	var filterBtn = null ;
+	switch(index) {
+		case 0 :
+			filterBtn = $("#filte-btn-location") ;
+			$("#location_sel")[0].selectedIndex = 0 ;
+			filter.location = "全部" ;
+			break ;
+		case 1 :
+			filterBtn = $("#filte-btn-open") ;
+			$("#all_day")[0].checked = false ;
+			$("#not_all_day")[0].checked = false ;
+			filter.allDay = false ;
+			filter.notAllDay = false ;
+			break ;
+		case 2 :
+			filterBtn = $("#filte-btn-pay") ;
+			$("#p_free")[0].checked = false ;
+			$("#p_fee")[0].checked = false ;
+			$("#p_none")[0].checked = false ;
+			filter.fee = false ;
+			filter.free = false ;
+			filter.noCost = false ;
+			break ;
+		default :
+			break;
+	}
+	if (filterBtn) {
+		filterBtn.html(filterLable);
+		// remove color
+		filterBtn.removeClass("bg-info");
+		filterBtn.removeClass("text-white");
+		filterBtn.removeClass("btn");
+		// add color
+		filterBtn.addClass("bg-transparent");
+		filterBtn.addClass("text-primary");
+	}
+
+  // filter data
+	filterData = tripList.filter(filterSpot);
+
+	/* ===== always filter data ===== */
+  page.startPage = 0;
+  page.pointPage = 0;
+  page.dataOrigin = false;
+
+	page.totalPage = Math.ceil(filterData.length/page.spotMaxItem);
+	page.totalRecord = filterData.length;
+	// show spot counter
+	$(".spot_counetr").text("景點筆數 : " + page.totalRecord );
+	// show spot
+	showSpotData(filterData, page.pointPage, page.totalRecord, page.spotMaxItem);
+
+	// show pagibnation
+	showPagination(page, page.totalPage);
+}
+
 // location filter
 function locateSelect(event) {
-	//var filter = $("badge") ;
+	var filterLocate = $("#filte-btn-location") ;
 
   // get locate data
-	//filterLocation = event.target.options[event.target.selectedIndex].value ;
 	filter.location = event.target.options[event.target.selectedIndex].value ;
-/*	
+	
 	// show filter button
-  if (filterLocation == "全部") {
-  	filrterBtn1.innerHTML = filterLable ;
-		filrterBtn1.style.color = "#9013FE";
-		filrterBtn1.style.backgroundColor = "#F2F2F2";
+  if (filter.location == "全部") {
+  	filterLocate.html(filterLable);
+		// remove color
+		filterLocate.removeClass("bg-info");
+		filterLocate.removeClass("text-white");
+		filterLocate.removeClass("btn");
+		// add color
+		filterLocate.addClass("bg-transparent");
+		filterLocate.addClass("text-primary");
   }
   else {
-		filrterBtn1.innerHTML = filterLocation + filterLable ;
-		filrterBtn1.style.color = "#F2F2F2";
-		filrterBtn1.style.backgroundColor = "#9013FE";
+		filterLocate.html(filter.location + filterLableShift);
+		// remove color
+		filterLocate.removeClass("bg-transparent");
+		filterLocate.removeClass("text-primary");
+		// add color
+		filterLocate.addClass("bg-info");
+		filterLocate.addClass("text-white");
+		filterLocate.addClass("btn");
   }
-*/
+
   // filetr data
-	//filterData = xhrRespDataRaw.result.records.filter(filterSpot);
 	filterData = tripList.filter(filterSpot);
-	
-	// show filter screen
-  //showFilterScreen()
 
 	/* ===== always filter data ===== */
   page.startPage = 0;
@@ -292,8 +389,9 @@ function locateSelect(event) {
 
 // condition filter
 function conditionSelect(event) {
-	//var filrterBtn2 = document.getElementById("filter_btn2");
-	//var filrterBtn3 = document.getElementById("filter_btn3");
+	var filterOpen = $("#filte-btn-open") ;
+	var filterPay = $("#filte-btn-pay") ;
+	var text;
 
 	switch (event.target.value) {
 		case "all_day" :
@@ -340,57 +438,78 @@ function conditionSelect(event) {
 			break ;
 	}
 
-/*
-	filrterBtn2.innerHTML = "" ;
-	if (filterAllDay && filterNotAllDay) {
-		filrterBtn2.innerHTML = "全天候開放" + "/" + "非全天候開放";
+	text = "" ;
+	if (filter.allDay && filter.notAllDay) {
+		text = "全天候開放" + " " + "非全天候開放";
 	}
 	else {
-		if (filterAllDay) {
-			filrterBtn2.innerHTML = "全天候開放";
+		if (filter.allDay) {
+			text = "全天候開放";
 		}
-		if (filterNotAllDay) {
-			filrterBtn2.innerHTML = "非全天候開放";
+		if (filter.notAllDay) {
+			text = "非全天候開放";
 		}
 	}
-	if (filrterBtn2.innerHTML == "") {
-		filrterBtn2.style.color = "#9013FE";
-		filrterBtn2.style.backgroundColor = "#F2F2F2";
+	if (text == "") {
+		filterOpen.html(filterLable);
+		// remove color
+		filterOpen.removeClass("bg-info");
+		filterOpen.removeClass("text-white");
+		filterOpen.removeClass("btn");
+		// add color
+		filterOpen.addClass("bg-transparent");
+		filterOpen.addClass("text-primary");
 	}
 	else {
-		filrterBtn2.style.color = "#F2F2F2";
-		filrterBtn2.style.backgroundColor = "#9013FE";
+		filterOpen.html(text+filterLableShift);
+		// remove color
+		filterOpen.removeClass("bg-transparent");
+		filterOpen.removeClass("text-primary");
+		// add color
+		filterOpen.addClass("bg-info");
+		filterOpen.addClass("text-white");
+		filterOpen.addClass("btn");
 	}
-	filrterBtn2.innerHTML += filterLable ;
 
-	filrterBtn3.innerHTML = "" ;
-	if (filterFree && filterNotFree){
-		filrterBtn3.innerHTML = "免費參觀" + "/" + "非免費參觀";
+	text = "" ;
+	if (filter.free) {
+		text = "免費參觀";
+	}
+	if (filter.fee) {
+		if (text != "") {
+			text += " ";
+		}
+		text += "非免費參觀";
+	}
+	if (filter.noCost) {
+		if (text != "") {
+			text += " ";
+		}
+		text += "無資訊";
+	}
+	if (text == "") {
+		filterPay.html(filterLable);
+		// remove color
+		filterPay.removeClass("bg-info");
+		filterPay.removeClass("text-white");
+		filterPay.removeClass("btn");
+		// add color
+		filterPay.addClass("bg-transparent");
+		filterPay.addClass("text-primary");
 	}
 	else {
-	 	if (filterFree) {
-			filrterBtn3.innerHTML = "免費參觀";
-		}
-		if (filterNotFree) {
-			filrterBtn3.innerHTML = "非免費參觀";
-		}
+		filterPay.html(text+filterLableShift);
+		// remove color
+		filterPay.removeClass("bg-transparent");
+		filterPay.removeClass("text-primary");
+		// add color
+		filterPay.addClass("bg-info");
+		filterPay.addClass("text-white");
+		filterPay.addClass("btn");
 	}
-	if (filrterBtn3.innerHTML == "") {
-		filrterBtn3.style.color = "#9013FE";
-		filrterBtn3.style.backgroundColor = "#F2F2F2";
-	}
-	else {
-		filrterBtn3.style.color = "#F2F2F2";
-		filrterBtn3.style.backgroundColor = "#9013FE";
-	}
-	filrterBtn3.innerHTML += filterLable ;
-*/
 
   // filter data
 	filterData = tripList.filter(filterSpot);
-	
-	// show filter screen
-  //showFilterScreen();
 
 	/* ===== always filter data ===== */
   page.startPage = 0;
